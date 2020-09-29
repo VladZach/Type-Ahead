@@ -7,8 +7,8 @@ fetch(endpoint)
   .then(data => cities.push(...data))
 
 function findMatches(wordToMatch, cities) {
+  const regex = new RegExp(`${wordToMatch}`, 'ig')
   return cities.filter(place => {
-    let regex = new RegExp(`${wordToMatch}`, 'ig')
     return place.city.match(regex) || place.state.match(regex)
   })
 }
@@ -19,8 +19,8 @@ function numberWithCommas(x) {
 
 function displayMatches() {
   const matchArray = findMatches(this.value, cities);
+  const regex = new RegExp(this.value, 'gi')
   const html = matchArray.map(place => {
-    const regex = new RegExp(this.value, 'gi')
     const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`)
     const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`)
     return `<li>
